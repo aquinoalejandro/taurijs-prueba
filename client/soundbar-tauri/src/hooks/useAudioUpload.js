@@ -7,7 +7,9 @@ export const useAudioUploader = ( initialState = null ) => {
     const uploadAudio = (event) => {
         const audio = event.target.files[0];
 
-        if (audio && audio.type.startsWith('audio/mp3')) {
+        console.log(audio);
+
+        if (audio && audio.type.startsWith('audio/mpeg')) {
 
             const reader = new FileReader();
             reader.onload = (e) => {
