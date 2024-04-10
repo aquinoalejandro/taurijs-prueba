@@ -4,9 +4,12 @@ export async function downloadAudioController(req, res) {
     try {
         const data = req.body
 
-        console.log(data);
-
-        const { url, options } = data;
+        const { url, options = {
+            "quality": "highestaudio",
+            "filter": "audioonly",
+            "format": "mp3"
+          } } = data;
+          
         const downloadedAudio = await downloadAudioService(url, options);
         return res.status(200).json({ message: 'Descarga completada: ', downloadedAudio });
         

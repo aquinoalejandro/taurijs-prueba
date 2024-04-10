@@ -15,7 +15,7 @@ export async function downloadAudioService(url, options) {
         const info = await ytdl.getInfo(url);
         const title = info.videoDetails.title.replace(/[^\w\s]/gi, '');
         const filename = `${title}.mp3`;
-        const directory = 'audios';
+        const directory = 'public/audios';
 
         // * Verificar si el directorio 'audios' existe, si no, crearlo
         if (!fs.existsSync(directory)) {
