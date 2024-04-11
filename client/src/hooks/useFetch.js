@@ -1,29 +1,39 @@
 import { useState, useEffect } from "react";
+import { serverRoutes } from "../data/env"
 
-export async function useFetch(url, method = "GET") {
+const { mainRoute } = serverRoutes;
+
+export function useFetch(url, method = "GET") {
+
+    const route = `${mainRoute}${url}`;
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                if (method === "GET") {
-                    const response = await fetch(url, {
-                        method: method,
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    });
-                    const data = await response.json();
-                    setData(data);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error("Error al realizar la petición", error);
-            }
+    async function fetchData() {
+        try {
+            if (method === "GET") {
+                const response = await fetch(route, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const result = await response.json();
+                setData(result);
+                setLoading(false);            }
+        } catch (error) {
+            console.error("Error al realizar la petición", error);
         }
-        fetchData();
+    }
+
+    async function refetch() {
+        await fetchData();
+    };
+
+    useEffect(() => {
+        fetchData()
     }, [url]);
 
-    return { data, loading };
+    return { data, loading, refetch };
 }

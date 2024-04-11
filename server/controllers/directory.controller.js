@@ -9,10 +9,10 @@ const audioPath = path.join(__dirname, "../audios/");
 
 export async function readDirectory(req, res) {
     try {
-        console.log(audioPath);
 
         const files = await fs.readdir(audioPath);
-        return res.status(200).json(files);
+        const mp3Files = files.filter(file => file.endsWith('.mp3'));
+        return res.status(200).json(mp3Files);
     } catch (error) {
         console.error("Error al leer los archivos del directorio", error);
     }

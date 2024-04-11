@@ -3,4 +3,4 @@ import { downloadAudioController } from "../controllers/download.controller.js";
 
 export const downloadRouter = Router();
 
-downloadRouter.get("/download", downloadAudioController);
+downloadRouter.post("/download", downloadAudioController);
